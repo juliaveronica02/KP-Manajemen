@@ -1,0 +1,7 @@
+.detail-img {
+    width: 50%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    margin-left: 250px;
+  }

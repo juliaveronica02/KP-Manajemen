@@ -1,0 +1,54 @@
+.header {
+    font-family: sans-serif;
+    background-color: rgb(6, 66, 100);
+    overflow: hidden;
+    color: white;
+    padding: 100px;
+    width: 140%;
+    height: 100%;
+  }
+  
+  .display-3 {
+      display: inline-block;
+  }
+  
+  .logo {
+    width: 75px;
+    height: 125px;
+  }
+
+  .form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: black;
+    text-align: left;
+    
+  }
+
+  .forgot {
+    font-size: 14px;
+
+  }
+
+  .forgot span {
+    color: blue;
+  }
+  
+  .form .wider {
+    width: 120%;
+  }
+  
+  .button {
+      background-color: rgb(6, 66, 100);
+      display: inline-block;
+      
+  }
+
+  .password {
+      color: blue;
+      text-decoration: underline;
+  }
+  

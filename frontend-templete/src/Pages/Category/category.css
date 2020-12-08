@@ -1,0 +1,7 @@
+.text-center {
+    font-family: "Open Sans", sans-serif !important;
+  }
+  .hr {
+    border: 1px solid red;
+    width: 80px;
+  }
