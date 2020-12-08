@@ -9,7 +9,7 @@ export const registerUser = (userData, history) => (dispatch) => {
   // console.log("user", userData);
   
   axios
-    .post(`https://api.juliaveronica.com/users/register`, userData)
+    .post(`http://localhost:8000/users/register`, userData)
     .then((res) => {
       Swal.fire({
         icon: `success`,
@@ -48,7 +48,7 @@ export const loginUser = (userData) => (dispatch) => {
   
   axios
     .post(
-      `${process.env.REACT_APP_API_URL_LOGIN}`,
+      `http://localhost:8000/users/login`,
 
       userData
     )
@@ -90,33 +90,21 @@ export const loginUser = (userData) => (dispatch) => {
         )
       }
     })
-    //   dispatch({type: GET_ERRORS, payload: err.response },
-    //     // Swal.fire({
-    //     //     icon: `error`,
-    //     //     title: `Sorry`,
-    //     //     text: `Incorrect Email or Password`
-    //     //   })
-    //  )});
-    // .catch((err) =>  Swal.fire({
-    //   icon: `error`,
-    //   title: `Sorry`,
-    //   text: `Something Went Wrong!`
-    // }))
 };
-// Set logged in user
+// Set logged in user.
 export const setCurrentUser = (decoded) => {
   return { type: SET_CURRENT_USER, payload: decoded };
 };
-// User loading
+// User loading.
 export const setUserLoading = () => {
   return { type: USER_LOADING };
 };
 // Log user out
 export const logoutUser = () => (dispatch) => {
-  // Remove token from local storage
+  // Remove token from local storage.
   localStorage.removeItem("jwtToken");
-  // Remove auth header for future requests
+  // Remove auth header for future requests.
   setAuthToken(false);
-  // Set current user to empty object {} which will set isAuthenticated to false
+  // Set current user to empty object {} which will set isAuthenticated to false.
   dispatch(setCurrentUser({}));
 };

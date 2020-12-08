@@ -12,11 +12,11 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
+      username: "",
       email: "",
       phone: "",
       password: "",
-      password2: "",
+      passoword: "",
       errors: {},
     };
   }
@@ -40,11 +40,11 @@ class Register extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const newUser = {
-      name: this.state.name,
+      username: this.state.username,
       email: this.state.email,
       phone: this.state.phone,
       password: this.state.password,
-      password2: this.state.password2,
+      passwordConfirm: this.state.passwordConfirm,
     };
     this.props.registerUser(newUser, this.props.history);
     console.log(newUser);
@@ -78,10 +78,10 @@ class Register extends Component {
                     <input
                       className="form-control"
                       onChange={this.onChange}
-                      value={this.state.name}
-                      error={errors.name}
-                      placeholder=" Full Name"
-                      id="name"
+                      value={this.state.username}
+                      error={errors.username}
+                      placeholder=" Enter Username"
+                      id="username"
                       size="25"
                       type="name"
                     />
@@ -129,14 +129,14 @@ class Register extends Component {
                   <div className="form-group">
                     <input
                       onChange={this.onChange}
-                      value={this.state.password2}
-                      error={errors.password2}
+                      value={this.state.passwordConfirm}
+                      error={errors.passwordConfirm}
                       placeholder=" Confirm Password"
-                      id="password2"
+                      id="passwordConfirm"
                       size="25"
                       type="password"
                       className={classnames("form-control", {
-                        invalid: errors.password2 || errors.passwordincorrect,
+                        invalid: errors.passwordConfirm || errors.passwordincorrect,
                       })}
                     />
                   </div>
