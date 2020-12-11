@@ -4,7 +4,7 @@ module.exports = {
   create: (req, res) => {
     DishModels.create({
       dishName: req.body.dishName,
-      imageURL: req.file && req.file.path,
+      imageURL: req.body.imageURL,
       description: req.body.description,
       quantity: req.body.quantity,
     })
@@ -24,7 +24,7 @@ module.exports = {
     DishModels.update(
       {
         dishName: req.body.dishName,
-        imageURL: req.file && req.file.path,
+      imageURL: req.body.imageURL,
         description: req.body.description,
         quantity: req.body.quantity,
       },

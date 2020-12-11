@@ -53,7 +53,7 @@ class NavMenu extends React.Component {
             ):(
               <>
             <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
-              <NavLink style={{ color: "white" }} className="nav-link" to="/inventory"> Inventory </NavLink>
+              <NavLink style={{ color: "white" }} className="nav-link" to="/dish"> Inventory </NavLink>
             </li>
             <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
               <NavLink style={{ color: "white" }} className="nav-link" to="/" href="/" onClick={this.onClick} > Logout </NavLink>
