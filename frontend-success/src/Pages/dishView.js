@@ -35,15 +35,15 @@ class ViewEmployeeComponent extends Component {
                         </div>
                         <div className = "row">
                             <label> Description &nbsp;&nbsp;: </label>
-                            <div> { this.state.dish.description }</div>
+                            <div> &nbsp; { this.state.dish.description }</div>
                         </div>
                         <div className = "row">
                             <label> Quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
-                            <div> { this.state.dish.quantity }</div>
+                            <div> &nbsp;{ this.state.dish.quantity }</div>
                         </div>
                         <div className = "row">
-                            <label> Unit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
-                            <div> { this.state.dish.unit }</div>
+                            <label> Unit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
+                            <div> &nbsp;{ this.state.dish.unit }</div>
                         </div>
                     </div>
 
