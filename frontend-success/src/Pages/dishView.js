@@ -1,3 +1,4 @@
+// this is view dish component.
 import React, { Component } from 'react'
 import DishService from '../dishServices/dishServices'
 
@@ -39,6 +40,10 @@ class ViewEmployeeComponent extends Component {
                         <div className = "row">
                             <label> Quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
                             <div> { this.state.dish.quantity }</div>
+                        </div>
+                        <div className = "row">
+                            <label> Unit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
+                            <div> { this.state.dish.unit }</div>
                         </div>
                     </div>
 

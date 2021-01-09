@@ -18,3 +18,27 @@ port 8000.
 
 ## Run.
 nodemon start.
+## Config mysql local.
+{
+  "development": {
+    "username": "root", 
+    "password": "Hallo123$",
+    "database": "collab",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

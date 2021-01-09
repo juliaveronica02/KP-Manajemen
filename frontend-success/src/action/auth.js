@@ -4,9 +4,9 @@ import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from "./types";
 import Swal from 'sweetalert2'
 
-// Register User
+// Register User.
 export const registerUser = (userData, history) => (dispatch) => {
-  // console.log("user", userData);
+  console.log("user", userData);
   
   axios
     .post(`http://localhost:8000/users/register`, userData)
@@ -14,7 +14,6 @@ export const registerUser = (userData, history) => (dispatch) => {
       Swal.fire({
         icon: `success`,
         title: `Register Success`,
-        // text: `Something Went Wrong!`
       })
       history.push("/signin")
     })
@@ -43,7 +42,7 @@ export const registerUser = (userData, history) => (dispatch) => {
       })}
     })
 };
-// Login - get user token
+// Login - get user token.
 export const loginUser = (userData) => (dispatch) => {
   
   axios
@@ -55,14 +54,14 @@ export const loginUser = (userData) => (dispatch) => {
     .then((res) => {
       // console.log(res);
       // if (res.status === 400){window.alert('salah password')}
-      // Save to localStorage Set token to localStorage
+      // Save to localStorage Set token to localStorage.
       const token = res.data.token;
       localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
+      // Set token to Auth header.
       setAuthToken(token);
-      // Decode token to get user data
+      // Decode token to get user data.
       const decoded = jwt_decode(token);
-      // Set current user
+      // Set current user.
       dispatch(setCurrentUser(decoded), 
       Swal.fire({
         icon: 'success',

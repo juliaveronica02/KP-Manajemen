@@ -1,5 +1,6 @@
 import React from "react";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+// Configure react app routing.
+import { HashRouter as Router, Route } from "react-router-dom";
 import Navbar from "./Components/Navbar"
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/authToken";

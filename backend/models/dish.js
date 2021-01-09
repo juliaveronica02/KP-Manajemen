@@ -34,6 +34,10 @@ const UserModel = sequelize.define(
             type: Sequelize.NUMBER,
             required: true,
         },
+        unit: {
+            type: Sequelize.STRING,
+            required: true,
+        },
         createdAt: {
             type: Sequelize.DATE,
         },

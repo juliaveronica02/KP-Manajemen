@@ -1,6 +1,8 @@
+// This is servicecs folder.
+// for API calls, we will using axios.
 import axios from 'axios';
 
-const DISH_API_BASE_URL = "http://localhost:8000/dish";
+// const DISH_API_BASE_URL = "http://localhost:8000/dish";
 
 class dishService {
 
