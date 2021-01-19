@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { Navbar } from "reactstrap";
 import SideBar from "./navbarSlide";
 import {connect} from 'react-redux'
-import "../App.css"
+import "../../App.css"
 
 class NavMenu extends React.Component {
   constructor(props) {
@@ -61,6 +61,12 @@ class NavMenu extends React.Component {
               {/* if user already login, will show button Inventory and logout. */}
             <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
               <NavLink style={{ color: "white" }} className="nav-link" to="/dish"> Inventory </NavLink>
+            </li>
+            <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
+              <NavLink style={{ color: "white" }} className="nav-link" to="/stock"> Stock </NavLink>
+            </li>
+            <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
+              <NavLink style={{ color: "white" }} className="nav-link" to="/checkout"> Checkout </NavLink>
             </li>
             <li className="nav-item" style={{ padding: 10, backgroundColor: "rgb(31, 43, 82)", borderRadius: 10, marginRight: 10}}>
               <NavLink style={{ color: "white" }} className="nav-link" to="/" href="/" onClick={this.onClick} > Logout </NavLink>

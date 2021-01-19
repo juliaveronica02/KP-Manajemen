@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dish');
+var stockRouter = require('./routes/stock');
+var checkoutRouter = require('./routes/checkout');
 
 var app = express();
 
@@ -31,5 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dish', dishRouter);
+app.use('/stock', stockRouter);
+app.use('/checkout', checkoutRouter);
 
 module.exports = app;

@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../action/auth";
+import { registerUser } from "../../action/auth";
 import classnames from "classnames";
-import Logo from "../img/logo.jpeg";
-import "../App.css";
+import Logo from "../../img/logo.jpeg";
+import "../../App.css";
 
 class Register extends Component {
   constructor() {

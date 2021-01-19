@@ -1,18 +1,32 @@
 import React from "react";
 // Configure react app routing.
 import { HashRouter as Router, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar"
+import Navbar from "./Components/Navbar/Navbar"
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/authToken";
 import { setCurrentUser, logoutUser } from "./action/auth"
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Home from "./Pages/Home"
-import signin from "./Components/signIn"
-import signup from "./Components/signUp"
-import CreateDish from './Pages/dishUpdate'  
-import DishList from './Pages/dishList'  
-import EditDish from "./Pages/dishView"; 
+import signin from "./Components/Form/signIn"
+import signup from "./Components/Form/signUp"
+// ------- DISH -----------
+import CreateDish from './Pages/Dish/dishUpdate'  
+import DishList from './Pages/Dish/dishList'  
+import EditDish from "./Pages/Dish/dishView"; 
+// ------- END -----------
+
+// ------- Stock -----------
+import CreateStock from './Pages/Stock/stockUpdate'  
+import StockList from './Pages/Stock/stockList'  
+import ViewStock from "./Pages/Stock/stockView"; 
+// ------- END -----------
+
+// ------- Checkout -----------
+import ListCheckout from './Pages/Checkout/checkoutList'  
+import CreateCheckout from './Pages/Checkout/checkoutUpdate'  
+// import ViewStock from "./Pages/Stock/stockView"; 
+// ------- END -----------
 
 // Check for token to keep user logged in.
 if (localStorage.jwtToken) {
@@ -47,6 +61,12 @@ function App() {
         <Route path = "/dish" component = {DishList}></Route>
         <Route path = "/add-dish/:id" component = {CreateDish}></Route>
         <Route path = "/view-dish/:id" component = {EditDish}></Route>
+        <Route path = "/stock" component = {StockList}></Route>
+        <Route path = "/add-stock/:id" component = {CreateStock}></Route>
+        <Route path = "/view-stock/:id" component = {ViewStock}></Route>
+        <Route path = "/checkout" component = {ListCheckout}></Route>
+        <Route path = "/add-checkout/:id" component = {CreateCheckout}></Route>
+
       </div>
     </Router>
     </Provider>

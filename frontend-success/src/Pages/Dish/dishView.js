@@ -1,8 +1,9 @@
 // this is view dish component.
+// Importing React since we are using React.
 import React, { Component } from 'react'
-import DishService from '../dishServices/dishServices'
+import DishService from '../../Services/dishServices'
 
-class ViewEmployeeComponent extends Component {
+class ViewDishComponent extends Component {
     constructor(props) {
         super(props)
 
@@ -41,10 +42,6 @@ class ViewEmployeeComponent extends Component {
                             <label> Quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
                             <div> &nbsp;{ this.state.dish.quantity }</div>
                         </div>
-                        <div className = "row">
-                            <label> Unit &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
-                            <div> &nbsp;{ this.state.dish.unit }</div>
-                        </div>
                     </div>
 
                 </div>
@@ -53,4 +50,4 @@ class ViewEmployeeComponent extends Component {
     }
 }
 
-export default ViewEmployeeComponent
+export default ViewDishComponent

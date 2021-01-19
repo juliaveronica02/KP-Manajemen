@@ -1,6 +1,8 @@
 const { INTEGER } = require("sequelize");
 const Sequelize = require("sequelize")
 const env = process.env.NODE_ENV || "development";
+// define Dish models.
+const Dish = require('./dish')
 const config = (require = require(__dirname + "/../config/config.json")[[env]]);
 const sequelize = new Sequelize(
     config.database,
@@ -9,8 +11,8 @@ const sequelize = new Sequelize(
     config
   );
 
-const UserModel = sequelize.define(
-    "Dish",
+const StockSchema = sequelize.define(
+    "Stock", // Stock database.
     {
         id: {
             type: Sequelize.INTEGER,
@@ -18,19 +20,14 @@ const UserModel = sequelize.define(
             allowNull: false,
             autoIncrement: true,
         },
-        dishName: {
-            type: Sequelize.STRING,
-            required: true,
+        dish_id: {
+            type: Sequelize.INTEGER,
+            // this is a references to another models.
+            references: {model: Dish},
+            // this is the column name of the references model.
+            key: 'id'
         },
-        imageURL: {
-            type: Sequelize.STRING,
-            required: true,
-        },
-        description: {
-            type: Sequelize.STRING,
-            required: true,
-        },
-        quantity: {
+        addQuantity: {
             type: Sequelize.NUMBER,
             required: true,
         },
@@ -43,4 +40,5 @@ const UserModel = sequelize.define(
     },
     {freezeTableName: true}
 )
-module.exports = UserModel;
+StockSchema.belongsTo(Dish, {as: 'dish', foreignKey: "dish_id"})
+module.exports = StockSchema;

@@ -7,7 +7,6 @@ module.exports = {
       imageURL: req.body.imageURL,
       description: req.body.description,
       quantity: req.body.quantity,
-      unit: req.body.unit,
     })
       .then((result) => res.json(result))
       .catch((err) => {
@@ -25,10 +24,9 @@ module.exports = {
     DishModels.update(
       {
         dishName: req.body.dishName,
-      imageURL: req.body.imageURL,
+        imageURL: req.body.imageURL,
         description: req.body.description,
         quantity: req.body.quantity,
-        unit: req.body.unit,
       },
       { where: { id: req.params.dishID } }
     )

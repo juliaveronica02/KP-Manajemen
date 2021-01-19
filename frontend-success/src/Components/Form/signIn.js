@@ -3,12 +3,12 @@ import { withRouter } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "../action/auth";
+import { loginUser } from "../../action/auth";
 import classnames from "classnames";
 // import Logo from "../img/logo2.png";
-import Logo from "../img/logo.jpeg";
+import Logo from "../../img/logo.jpeg";
 
-import "../App.css";
+import "../../App.css";
 
 class Login extends Component {
   constructor() {

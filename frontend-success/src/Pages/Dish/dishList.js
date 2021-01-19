@@ -1,7 +1,11 @@
 // Dish list.
+// Importing React since we are using React.
 import React, { Component } from 'react'
-import DishService from '../dishServices/dishServices'
-class ListEmployeeComponent extends Component {
+import DishService from '../../Services/dishServices'
+// Import moment js library to format date in table.
+import moment from 'moment';
+
+class ListDishComponent extends Component {
     /*
     constructor() invoked before the component is mounted. in the constructor, we have declared our state variables and bind the different methods so that 
     they are accessible from the state insode of the render() method.
@@ -55,10 +59,12 @@ class ListEmployeeComponent extends Component {
 
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th> Image</th>
                                     <th> Name</th>
                                     <th> Quantity</th>
-                                    <th> Unit</th>
+                                    <th> Create Time</th>
+                                    <th> Update Time</th>
                                     <th> Actions</th>
                                 </tr>
                             </thead>
@@ -68,10 +74,12 @@ class ListEmployeeComponent extends Component {
                                     this.state.dishs.map(
                                         dish => 
                                         <tr key = {dish.id}>
+                                            <td>{dish.id}</td>
                                              <td> <img src={dish.imageURL} alt="images" style={{width: "100px"}} /></td>   
                                              <td> {dish.dishName}</td>
                                              <td> {dish.quantity}</td>
-                                             <td> {dish.unit}</td>
+                                             <td> {moment(dish.createdAt).format('LLLL')}</td>
+                                             <td> {moment(dish.updatedAt).format("LLLL")}</td>
                                              <td>
                                                  <button onClick={ () => this.editDish(dish.id)} className="btn btn-info">Update </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDish(dish.id)} className="btn btn-danger">Delete </button>
@@ -90,4 +98,4 @@ class ListEmployeeComponent extends Component {
     }
 }
 
-export default ListEmployeeComponent
+export default ListDishComponent

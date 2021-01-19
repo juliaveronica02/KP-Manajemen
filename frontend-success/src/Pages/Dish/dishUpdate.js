@@ -1,8 +1,9 @@
 // this is add and update dish pages.
+// Importing React since we are using React.
 import React, { Component } from 'react'
-import DishService from '../dishServices/dishServices';
+import DishService from '../../Services/dishServices';
 
-class CreateEmployeeComponent extends Component {
+class CreateDishComponent extends Component {
     // in the constructor, we havae declared our state variables and bind the different methods so that they are accessible from the state inside of the render() method.
     constructor(props) {
         super(props)
@@ -13,7 +14,6 @@ class CreateEmployeeComponent extends Component {
             dishName: '',
             description: '',
             quantity: '',
-            unit: '',
         }
         this.changeimageURLHandler = this.changeimageURLHandler.bind(this);
         this.changedishNameHandler = this.changedishNameHandler.bind(this);
@@ -35,7 +35,6 @@ class CreateEmployeeComponent extends Component {
                     dishName: data.dishName,
                     description : data.description,
                     quantity : data.quantity,
-                    unit: data.unit
                 });
             });
         }        
@@ -43,7 +42,7 @@ class CreateEmployeeComponent extends Component {
     // save and update dish function.
     saveOrUpdateDish = (e) => {
         e.preventDefault();
-        let dish = {imageURL: this.state.imageURL, dishName: this.state.dishName, description: this.state.description, quantity: this.state.quantity, unit: this.state.unit};
+        let dish = {imageURL: this.state.imageURL, dishName: this.state.dishName, description: this.state.description, quantity: this.state.quantity};
         console.log('dish => ' + JSON.stringify(dish));
 
         /*
@@ -77,9 +76,7 @@ class CreateEmployeeComponent extends Component {
     changeQuantityHandler= (event) => {
         this.setState({quantity: event.target.value});
     }
-    changeUnitHandler= (event) => {
-        this.setState({unit: event.target.value});
-    }
+
     // on click on the cancel button, the cancel() method called and it will navigate the user to the dish list page.
     cancel(){
         this.props.history.push('/dish');
@@ -124,11 +121,6 @@ class CreateEmployeeComponent extends Component {
                                             <input placeholder="Example: 20" name="quantity" className="form-control" 
                                                 value={this.state.quantity} onChange={this.changeQuantityHandler}/>
                                         </div>
-                                        <div className = "form-group">
-                                            <label> Unit: </label>
-                                            <input placeholder="Example: Kg, pcs, etc." name="unit" className="form-control" 
-                                                value={this.state.unit} onChange={this.changeUnitHandler}/>
-                                        </div>
 
                                         <button className="btn btn-success" onClick={this.saveOrUpdateDish}>Save</button>
                                         <button className="btn btn-danger" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancel</button>
@@ -143,4 +135,4 @@ class CreateEmployeeComponent extends Component {
     }
 }
 
-export default CreateEmployeeComponent
+export default CreateDishComponent

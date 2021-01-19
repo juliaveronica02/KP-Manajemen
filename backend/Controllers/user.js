@@ -142,7 +142,7 @@ module.exports = {
             privateKey,
             {
               // expiresIn: 31556926, // 1 year in seconds
-              expiresIn: 60 * 60, // 1 hours.
+              expiresIn: "24h", // 24 hours.
             },
             (err, token) => {
               // show below data if success.
