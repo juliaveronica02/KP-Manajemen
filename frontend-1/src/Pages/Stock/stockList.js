@@ -7,7 +7,8 @@ import moment from 'moment';
 
 class StockListComponent extends Component {
     /*
-    constructor() invoked before the component is mounted. in the constructor, we have declared our state variables and bind the different methods so that 
+    constructor() invoked before the component is mounted. in the constructor, 
+    we have declared our state variables and bind the different methods so that 
     they are accessible from the state insode of the render() method.
     */
     constructor(props) {
@@ -35,7 +36,7 @@ class StockListComponent extends Component {
         this.props.history.push(`/add-stock/${id}`);
     }
     // componentDidMount() is executed when the component is mounted for the first time.
-    // in the implementation,  it actually invokes the services class method to fetch the dish from an API calls and populates the state variable stocks.
+    // in the implementation, it actually invokes the services class method to fetch the dish from an API calls and populates the state variable stocks.
     componentDidMount(){
         StockService.getAllData().then((res) => {
             this.setState({ stocks: res.data});

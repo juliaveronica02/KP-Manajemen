@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
     config.password,
     config
   );
-  const UserModel = sequelize.define(
+  const UserSchema = sequelize.define(
     "User",
     {
         id: {
@@ -46,4 +46,4 @@ const sequelize = new Sequelize(
     },
     {freezeTableName: true}
 )
-module.exports = UserModel;
+module.exports = UserSchema;

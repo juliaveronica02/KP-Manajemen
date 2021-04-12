@@ -62,36 +62,11 @@ module.exports = {
     },
     // getAllData.
     getAllData: (req, res) => {
-        // handle pagination.
-        const pageSize = 5;
-        const page = Number(req.query.pageNumber) || 1;
-        // declare variable users and count.
-        let users;   
-        let count;
-        // check for keywords.
-        const keyword = req.query.keyword ? req.query.keyword : null
-        if(keyword) {
-            count = UserModel.count({
-                where: {
-                    [Op.or] : [
-                        {id: {[Op.like]: `%${keyword}%`}},
-                        {username: {[Op.like]: `%${keyword}%`}},
-                        {email: {[Op.like]: `%${keyword}%`}},
-                    ]
-                }
-            }) 
-            // call variable users, where UserModel as User table.
-            users = UserModel.findAll({
-                // not show updatedAt.
-                attributes: {exclude: ['updatedAt']},
-                where: {
-                    [Op.or]: [
-                        {id: {[Op.like]: `%${keyword}%`}},
-                        {username: {[Op.like]: `%${keyword}%`}},
-                        {email: {[Op.like]: `%${keyword}%`}},
-                    ]
-                }, offset: (pageSize * (page -1)), limit: pageSize})
-        }
+        UserModel.findAll({
+          attributes: {exclude: ['updatedAt']}
+        })
+        .then((result)=> res.json(result))
+        .catch((err)=> {throw err})
     },
       // get user by id.
       getDataById: (req, res) => {
@@ -201,5 +176,22 @@ module.exports = {
     }, {where: {id: req.params.userId}})
     .then((result)=> res.json(result))
     .catch((err) => {throw err})
+  },
+  // search.
+  searchUserName: (req, res) => {
+    console.log("get all data oke: ", req.query);
+    const search = (req && req.query && req.query.search) || ""
+    UserModel.findAll({
+      attributes: {
+        exclude: ["updatedAt", "password"]
+      },
+      where: {
+        [or]: {
+          email: {[like]: `%${search}%`}
+        }
+      }
+    })
+    .then((result)=> res.json(result))
+    .catch((err)=> {throw err})
   }
 }

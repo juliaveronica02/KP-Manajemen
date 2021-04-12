@@ -7,7 +7,8 @@ import moment from 'moment';
 
 class ListDishComponent extends Component {
     /*
-    constructor() invoked before the component is mounted. in the constructor, we have declared our state variables and bind the different methods so that 
+    constructor() invoked before the component is mounted. in the constructor, 
+    we have declared our state variables and bind the different methods. so that,
     they are accessible from the state insode of the render() method.
     */
     constructor(props) {
@@ -76,7 +77,7 @@ class ListDishComponent extends Component {
                                         <tr key = {dish.id}>
                                             <td>{dish.id}</td>
                                              <td> <img src={dish.imageURL} alt="images" style={{width: "100px"}} /></td>   
-                                             <td> {dish.dishName}</td>
+                                             <td style={{ textTransform: 'capitalize'}}> {dish.dishName}</td>
                                              <td> {dish.quantity}</td>
                                              <td> {moment(dish.createdAt).format('LLLL')}</td>
                                              <td> {moment(dish.updatedAt).format("LLLL")}</td>

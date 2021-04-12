@@ -96,9 +96,7 @@ class CreateDishComponent extends Component {
                    <div className = "container" style={{marginTop:"8rem"}}>
                         <div className = "row">
                             <div className = "card col-md-6 offset-md-3 offset-md-3 pt-4">
-                                {
-                                    this.getTitle()
-                                }
+                                {this.getTitle()}
                                 <div className = "card-body">
                                     <form>
                                         <div className = "form-group">

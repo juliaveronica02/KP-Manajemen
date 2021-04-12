@@ -8,6 +8,7 @@ import { setCurrentUser, logoutUser } from "./action/auth"
 import { Provider } from "react-redux";
 import store from "./store/store";
 import Home from "./Pages/Home"
+import Footer from "./Components/Footer/footer"
 import signin from "./Components/Form/signIn"
 import signup from "./Components/Form/signUp"
 // ------- DISH -----------
@@ -25,7 +26,6 @@ import ViewStock from "./Pages/Stock/stockView";
 // ------- Checkout -----------
 import ListCheckout from './Pages/Checkout/checkoutList'  
 import CreateCheckout from './Pages/Checkout/checkoutUpdate'  
-// import ViewStock from "./Pages/Stock/stockView"; 
 // ------- END -----------
 
 // Check for token to keep user logged in.
@@ -66,8 +66,8 @@ function App() {
         <Route path = "/view-stock/:id" component = {ViewStock}></Route>
         <Route path = "/checkout" component = {ListCheckout}></Route>
         <Route path = "/add-checkout/:id" component = {CreateCheckout}></Route>
-
       </div>
+      <Footer />
     </Router>
     </Provider>
   );
