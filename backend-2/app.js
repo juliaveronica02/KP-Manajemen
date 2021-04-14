@@ -21,13 +21,13 @@ var app = express();
 
 // enabling cors for all requests by using cors middleware.
 app.use(
-    cors({
-      credentials: true,
-      origin: (req, cb) => {
-        // allow from anywhere
-        cb(null, true);
-    },
-  })
+ cors({
+  credentials: true,
+  origin: (req, cb) => {
+   // allow from anywhere
+   cb(null, true);
+  },
+ }),
 );
 // solve: has block by cors.
 // no need, already use cors()
@@ -51,7 +51,7 @@ app.use(cookieParser());
 app.use('/public', express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/images/users')));
-app.use(express.static(path.join(__dirname, 'public/images/dish')));
+app.use('/public/images/dish', express.static(path.join(__dirname, 'public/images/dish')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -62,17 +62,17 @@ app.use('/reduceStock', reduceStockRouter);
 app.use('/invoice', invoicekRouter);
 
 function validateUser(req, res, next) {
-    // headers with name x-access-token.
-    jwt.verify(req.headers['x-access-token'], privateKey, (err, decoded) => {
-      if (err) {
-        // if not login, will show message please log in again.
-        res.status(401).json({ ...err, message: 'please log in again' });
-      } else {
-        // success login, will show the result.
-        req.body.userId = decoded.id;
-        next();
-      }
-  });
+ // headers with name x-access-token.
+ jwt.verify(req.headers['x-access-token'], privateKey, (err, decoded) => {
+  if (err) {
+   // if not login, will show message please log in again.
+   res.status(401).json({ ...err, message: 'please log in again' });
+  } else {
+   // success login, will show the result.
+   req.body.userId = decoded.id;
+   next();
+  }
+ });
 }
 
 module.exports = app;
