@@ -47,7 +47,7 @@ module.exports = {
     name: req.body.name,
     image: req.file && req.file.path,
     description: req.body.description,
-    category_id: req.body.category_id,
+    categories: 'item',
     quantity: req.body.quantity,
    },
    { where: { id: req.params.dishId } },

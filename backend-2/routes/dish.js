@@ -19,5 +19,6 @@ router.get('/show', dishController.getAllData);
 router.get('/show/:dishId', dishController.getDataById);
 router.post('/create', upload.single('image'), dishController.create);
 router.put('/edit/:dishId', upload.single('image'), dishController.updateDataById);
+router.delete('/delete/:dishId', dishController.deleteDataById)
 
 module.exports = router;

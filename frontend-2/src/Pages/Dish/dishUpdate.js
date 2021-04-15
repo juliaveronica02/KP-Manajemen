@@ -8,17 +8,22 @@ const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
  const [image, setImage] = useState('');
+ const [data, setData] = useState([])
 
- const {
-  register,
-  handleSubmit,
-  formState: { errors },
-  setValue,
- } = useForm();
+ const {register, handleSubmit, formState: { errors }, setValue} = useForm();
 
- useEffect(() => {}, []);
+ useEffect(() => {
+     DishService.getDataById(id)
+     .then((response)=> {
+         setData(response.data)
+         console.log("dish: ",response.data);
+     })
+     .catch((error)=> {
+         console.log("error", error);
+     })
+ }, []);
 
- const changeimageURLHandler = (event) => {
+  const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
   if (event.target.files && event.target.files[0]) {
@@ -39,8 +44,8 @@ const CreateDishComponent = () => {
  };
 
  const cancel = () => history.push('/dish');
-
- const onSubmit = (data, e) => {
+ 
+  const onSubmit = (data, e) => {
   const formData = new FormData();
   formData.append('image', data.image);
   formData.append('name', data.name);
@@ -57,44 +62,51 @@ const CreateDishComponent = () => {
   if (id === 'create') {
    DishService.create(formData, config).then((res) => {
     setImage('');
-    e.target.reset();
-    // this.props.history.push('/dish');
+    // e.target.reset();
+    history.push('/dish');
+    console.log('data create success: ', res);
    });
   } else {
-   DishService.updateDataById(id, config).then((res) => {
-    // this.props.history.push('/dish');
-    // console.log('data update sent: ', res);
-   });
+   DishService.updateDataById(id, config, formData).then((res) => {
+    history.push('/dish');
+    console.log('data update success: ', res);
+   })
+   .catch((error)=> {
+       console.log("error", error);
+   })
   }
  };
+
+ const getTitle = () => {
+     if (id === "create") {
+         return <h3 className="text-center">Add Dish</h3>
+     }
+     else {
+        return <h3 className="text-center">Update Dish</h3>
+     }
+ }
 
  return (
   <div className="container" style={{ marginTop: '8rem' }}>
    <div className="row">
     <div className="card col-md-6 offset-md-3 offset-md-3 pt-4">
+        {getTitle()}
      <div className="card-body">
       <form onSubmit={handleSubmit(onSubmit)}>
-       {id ? (
-        <h3 className="text-center">Add Dish</h3>
-       ) : (
-        <h3 className="text-center">Update Dish</h3>
-       )}
        <div className="form-group">
         <label> Image: </label>
         <input
          type="file"
          className="form-control"
-         // value={this.state.image.name}
          {...register('image', { required: true })}
          onChange={(e) => changeimageURLHandler(e)}
         />
        </div>
        {image && (
         <div>
-         <img src={image} alt="display" />
+         <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
         </div>
        )}
-
        <div className="form-group">
         <label> Dish Name: </label>
         <input
