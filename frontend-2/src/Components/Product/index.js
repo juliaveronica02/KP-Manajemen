@@ -57,7 +57,7 @@ class Product extends React.Component {
       </div>
       <div className="card-body pt-0">
        <h5 className="mt-4 mb-3">{listProduct.name}</h5>
-       <p>{listProduct.description}</p>
+       <p className="text-ellipsis"><span className="text-concat" >{listProduct.description}</span> </p>
        {/* if still have stock (quantity is number) the background color is blue, when out of stock will turn red and show "out of stock" text. */}
        <p>
         Remaining Stock:{' '}
@@ -67,9 +67,9 @@ class Product extends React.Component {
          <span className={'badge bg-danger'}>Out Of Stock !!</span>
         )}{' '}
        </p>
-       <Link className="btn btn-primary mr-4" to={`/item/${listProduct.id}`}>
+       {/* <Link className="btn btn-primary mr-4" to={`/item/${listProduct.id}`}>
         Detail
-       </Link>
+       </Link> */}
       </div>
      </div>
     </div>

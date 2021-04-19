@@ -28,6 +28,11 @@ import ListCheckout from './Pages/Checkout/checkoutList'
 import CreateCheckout from './Pages/Checkout/checkoutUpdate'  
 // ------- END -----------
 
+// ------- Invoice ----------
+import ListInvoice from "./Pages/Invoice/list"
+import CreateInvoice from "./Pages/Invoice/createUpdate"
+import ViewInvoice from "./Pages/Invoice/view"
+
 // Check for token to keep user logged in.
 if (localStorage.jwtToken) {
   // Set auth token header auth.
@@ -66,6 +71,10 @@ function App() {
         <Route path = "/view-stock/:id" component = {ViewStock}></Route>
         <Route path = "/checkout" component = {ListCheckout}></Route>
         <Route path = "/add-checkout/:id" component = {CreateCheckout}></Route>
+        <Route path = "/invoice" component = {ListInvoice}></Route>
+        <Route path = "/add-invoice/:id" component = {CreateInvoice}></Route>
+        <Route path = "/view-invoice/:id" component = {ViewInvoice}></Route>
+
       </div>
       <Footer />
     </Router>

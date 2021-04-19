@@ -60,12 +60,12 @@ class ListDishComponent extends Component {
 
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th> Id </th>
                                     <th> Image</th>
                                     <th> Name</th>
+                                    <th> Description</th>
                                     <th> Quantity</th>
                                     <th> Create Time</th>
-                                    <th> Update Time</th>
                                     <th> Actions</th>
                                 </tr>
                             </thead>
@@ -78,12 +78,12 @@ class ListDishComponent extends Component {
                                             <td>{dish.id}</td>
                                              <td><img src={`http://localhost:8000/${dish.image}`} alt="images" style={{width: "100px"}} /></td>   
                                              <td style={{ textTransform: 'capitalize'}}> {dish.name}</td>
+                                             <td> {dish.description}</td>
                                              <td> {dish.quantity > 0 ? <span className={'badge bg-primary'}>{dish.quantity}</span>:
                                                   <span className={'badge bg-danger'}>Out Of Stock !!</span> } </td>
                                              <td> {moment(dish.createdAt).format('LLLL')}</td>
-                                             <td> {moment(dish.updatedAt).format("LLLL")}</td>
                                              <td>
-                                                 <button onClick={ () => this.editDish(dish.id)} className="btn btn-info">Update </button>
+                                                 {/* <button onClick={ () => this.editDish(dish.id)} className="btn btn-info">Update </button> */}
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDish(dish.id)} className="btn btn-danger">Delete </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.viewDish(dish.id)} className="btn btn-info">View </button>
                                              </td>

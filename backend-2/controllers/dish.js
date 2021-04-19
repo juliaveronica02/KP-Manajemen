@@ -4,26 +4,25 @@ const fs = require('fs');
 
 module.exports = {
  create: (req, res) => {
-  let { name, description, quantity } = req.body;
+  let { name, description, quantity, categories } = req.body;
   DishModels.create({
    name: name,
    image: req.file.path,
    description: description,
-   category_id: 1, //change in here
-   categories: 'item',
+  //  category_id: 1, //change in here.
+   categories: categories,
    quantity: quantity,
   })
    .then((result) => {
     return res.status(200).json(result);
    })
    .catch((err) => {
-    // if failed or getting error to upload it will delete the image
+    // if failed or getting error to upload it will delete the image.
     fs.unlink(req.file.path, (err) => {
      if (!req.file.path && err) {
       next(err);
      }
     });
-
     return res.status(400).json('Failed adding data!');
    });
  },
@@ -45,16 +44,24 @@ module.exports = {
   DishModels.update(
    {
     name: req.body.name,
-    image: req.file && req.file.path,
+    image: req.file.path,
     description: req.body.description,
-    categories: 'item',
+    categories: req.body.categories,
     quantity: req.body.quantity,
    },
    { where: { id: req.params.dishId } },
   )
-   .then((result) => res.json(result))
+  .then((result) => {
+    return res.status(200).json(result);
+   })
    .catch((err) => {
-    throw err;
+    // if failed or getting error to upload it will delete the image.
+    fs.unlink(req.file.path, (err) => {
+     if (!req.file.path && err) {
+      next(err);
+     }
+    });
+    return res.status(400).json('Failed update data!');
    });
  },
  // delete berita by id.

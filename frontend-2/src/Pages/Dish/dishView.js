@@ -16,6 +16,7 @@ class ViewDishComponent extends Component {
     componentDidMount(){
         DishService.getDataById(this.state.id).then( res => {
             this.setState({dish: res.data});
+            console.log("dish by id: ", res.data);
         })
     }
 
@@ -28,11 +29,15 @@ class ViewDishComponent extends Component {
                     <div className = "card-body">
                         <div className = "row">
                             <label> Image URL &nbsp; &nbsp;: </label>
-                            <div> &nbsp; { this.state.dish.imageURL }</div>
+                            <div> &nbsp; { this.state.dish.image }</div>
                         </div>
                         <div className = "row">
                             <label>  Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
-                            <div>&nbsp; { this.state.dish.dishName }</div>
+                            <div>&nbsp; { this.state.dish.name }</div>
+                        </div>
+                        <div className = "row">
+                            <label> Categories &nbsp;&nbsp;&nbsp;: </label>
+                            <div> &nbsp; { this.state.dish.categories }</div>
                         </div>
                         <div className = "row">
                             <label> Description &nbsp;&nbsp;: </label>
@@ -40,7 +45,8 @@ class ViewDishComponent extends Component {
                         </div>
                         <div className = "row">
                             <label> Quantity &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </label>
-                            <div> &nbsp;{ this.state.dish.quantity }</div>
+                            <div> &nbsp; {this.state.dish.quantity > 0 ? <span className={'badge bg-primary'}>{this.state.dish.quantity}</span>:
+                                                  <span className={'badge bg-danger'}>Out Of Stock !!</span> }</div>
                         </div>
                     </div>
 
