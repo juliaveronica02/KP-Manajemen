@@ -44,6 +44,7 @@ module.exports = {
   DishModels.update(
    {
     name: req.body.name,
+    // image: req.file && req.file.path,
     image: req.file.path,
     description: req.body.description,
     categories: req.body.categories,

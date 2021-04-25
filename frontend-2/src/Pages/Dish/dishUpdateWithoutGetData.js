@@ -9,26 +9,18 @@ const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
  const [image, setImage] = useState('');
- const [data, setData] = useState({
-     name: '',
-     image:'',
-     description: '',
-     quantity: '',
-     categories: ''
- })
- 
  const {register, handleSubmit, formState: { errors }, setValue} = useForm();
 
  useEffect(() => {
          DishService.getDataById(id)
          .then((result)=> {
-            setData({
-                image: result.data.image, 
-                name: result.data.name, 
-                description: result.data.description, 
-                categories: result.data.categories, 
-                quantity: result.data.quantity})
-                console.log("setData: ", result.data);
+             setValue("id", result.data.id)
+             setValue("image", result.data.image)
+             setValue("name", result.data.name)
+             setValue("description", result.data.description)
+             setValue("categories", result.data.categories)
+             setValue("quantity", result.data.quantity)
+             console.log("result", result.data.id, result.data.image);
          })
          .catch((error)=> {
              console.log("error", error);
@@ -64,7 +56,7 @@ const CreateDishComponent = () => {
   formData.append('categories', data.categories);
   formData.append('description', data.description);
   formData.append('quantity', data.quantity);
-    console.log( data, '1. ==================')
+
   const config = {
    headers: {
     'Content-Type': 'multipart/form-data',
@@ -81,6 +73,7 @@ const CreateDishComponent = () => {
     console.log('data create success: ', res);
    });
   } else {
+//    DishService.updateDataById(id,data, config, formData).then((res) => {
     axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
     setImage('')
     history.push('/dish');
@@ -97,7 +90,7 @@ const CreateDishComponent = () => {
         return <h3 className="text-center">Update Dish</h3>
      }
  }
- 
+
  return (
   <div className="container" style={{ marginTop: '8rem' }}>
    <div className="row">
@@ -110,41 +103,30 @@ const CreateDishComponent = () => {
         <input
          type="file"
          className="form-control"
-         defaultValue={data.image}
          {...register('image', { required: true })}
          onChange={(e) => changeimageURLHandler(e)}
         />
        </div>
-       
-       {image ? (
+       {image && (
         <div>
          <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
         </div>
-       ) : data.image ? (
-        <div>
-         <img src={`http://localhost:8000/${data.image}`} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
-        </div>
-       ) : 'Upload image!'
-    }
-       {console.log(data, '2.===============================================')}
-
+       )}
        <div className="form-group">
         <label> Dish Name: </label>
         <input
          type="text"
          className="form-control"
-         defaultValue={data.name}
          {...register('name', { required: true })}
          onChange={(e) => onChangeValue(e, 'name')}
         />
        </div>
-
+       
        <div className="input-group mb-3">
        <div className="input-group">
             <label>Categories:</label>
         </div>
         <select className="custom-select" id="inputGroupSelect02"
-        defaultValue={data.categories}
         {...register('categories', { required: true })}
         onChange={(e) => onChangeValue(e, 'categories')}>
             <option>Choose Categories!</option>
@@ -152,13 +134,13 @@ const CreateDishComponent = () => {
             <option>Two</option>
             <option>Three</option>
         </select>
+       
         </div>
 
        <div className="form-group">
         <label> Description: </label>
         <textarea className="form-control" 
          rows="5"
-         defaultValue={data.description}
          {...register('description', { required: true })}
          onChange={(e) => onChangeValue(e, 'description')}
         />
@@ -169,7 +151,6 @@ const CreateDishComponent = () => {
         <input
          type="number"
          className="form-control"
-         defaultValue={data.quantity}
          {...register('quantity', { required: true })}
          onChange={(e) => onChangeValue(e, 'quantity')}
         />

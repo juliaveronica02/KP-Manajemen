@@ -83,7 +83,7 @@ class ListDishComponent extends Component {
                                                   <span className={'badge bg-danger'}>Out Of Stock !!</span> } </td>
                                              <td> {moment(dish.createdAt).format('LLLL')}</td>
                                              <td>
-                                                 {/* <button onClick={ () => this.editDish(dish.id)} className="btn btn-info">Update </button> */}
+                                                 <button onClick={ () => this.editDish(dish.id)} className="btn btn-info">Update </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.deleteDish(dish.id)} className="btn btn-danger">Delete </button>
                                                  <button style={{marginLeft: "10px"}} onClick={ () => this.viewDish(dish.id)} className="btn btn-info">View </button>
                                              </td>
