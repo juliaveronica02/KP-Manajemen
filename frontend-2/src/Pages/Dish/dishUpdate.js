@@ -8,7 +8,9 @@ import axios from 'axios'
 const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
+ // value image for select image file from device.
  const [image, setImage] = useState('');
+ // declere field from backend models.
  const [data, setData] = useState({
      name: '',
      image:'',
@@ -20,8 +22,10 @@ const CreateDishComponent = () => {
  const {register, handleSubmit, formState: { errors }, setValue} = useForm();
 
  useEffect(() => {
+    //  get dish by id.
          DishService.getDataById(id)
          .then((result)=> {
+            //  setValue to get the data and parse to form with default value.
             setData({
                 image: result.data.image, 
                 name: result.data.name, 
@@ -35,6 +39,7 @@ const CreateDishComponent = () => {
          })
  }, [id]);
 
+//  handle image upload when cretae and update image.
   const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
@@ -89,6 +94,7 @@ const CreateDishComponent = () => {
   }
  };
 
+ // change title.
  const getTitle = () => {
      if (id === "create") {
          return <h3 className="text-center">Add Dish</h3>
