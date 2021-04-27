@@ -4,16 +4,19 @@ const fs = require('fs');
 
 module.exports = {
  create: (req, res) => {
-   if (DishModels.quantity < 1) return res.status(400).json({ status: 'error', message: 'the meal is out of stock.' })
-   if ((DishModels.quantity - quantity) < 0) {
-    return res.status(404).json({ status: 'error', message: 'quantity can not excess stock\'s quantity' })
+  if (DishModels.quantity < 1)
+   return res.status(400).json({ status: 'error', message: 'the meal is out of stock.' });
+  if (DishModels.quantity - quantity < 0) {
+   return res
+    .status(404)
+    .json({ status: 'error', message: "quantity can not excess stock's quantity" });
   }
   let { name, description, quantity, categories } = req.body;
   DishModels.create({
    name: name,
    image: req.file.path,
    description: description,
-  //  category_id: 1, //change in here.
+   //  category_id: 1, //change in here.
    categories: categories,
    quantity: quantity,
   })
@@ -56,7 +59,7 @@ module.exports = {
    },
    { where: { id: req.params.dishId } },
   )
-  .then((result) => {
+   .then((result) => {
     return res.status(200).json(result);
    })
    .catch((err) => {
@@ -78,9 +81,14 @@ module.exports = {
    });
  },
  // get berita by id.
- getDataById: (req, res) => {
-  DishModels.findOne({ where: { id: req.params.dishId } })
-   .then((result) => res.json(result))
+ getDataById: async (req, res) => {
+  const { dishId } = req.params;
+  await DishModels.findByPk(dishId, {
+   attributes: ['image', 'description', 'name', 'category_id', 'quantity', 'categories'],
+  })
+   .then((result) => {
+    res.status(200).json(result);
+   })
    .catch((err) => {
     throw err;
    });
