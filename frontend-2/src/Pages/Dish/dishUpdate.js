@@ -72,6 +72,8 @@ const CreateDishComponent = () => {
     history.push('/dish');
    });
   } else {
+   // jangan langsung kirim ke axios
+   // cari tau gimana handle value untuk input type file
    console.log(value);
    // axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
    //  setImage('');
