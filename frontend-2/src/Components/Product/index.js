@@ -1,11 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import { NavLink } from 'react-router-dom';
-=======
-import { NavLink, Link } from 'react-router-dom';
-import './index.css'
->>>>>>> dd7896478f0aaf18535ff29b4a73f8582df6b68e
 
 class Product extends React.Component {
  // constructor(props) {
@@ -58,12 +53,11 @@ class Product extends React.Component {
         alt={listProduct.name}
         className="card-img-top"
         // height: '200px': optional, you can remove it.
-        style={{ height: '200px', width: '100%', overflow:'hidden', objectFit: 'cover' }}
+        style={{ height: '200px', width: '100%', overflow: 'hidden', objectFit: 'cover' }}
        />
       </div>
       <div className="card-body pt-0">
        <h5 className="mt-4 mb-3">{listProduct.name}</h5>
-<<<<<<< HEAD
        <p className="text-ellipsis">
         <span
          className="text-concat"
@@ -80,9 +74,6 @@ class Product extends React.Component {
          {listProduct.description}
         </span>{' '}
        </p>
-=======
-       <p className="text-ellipsis"><span className="text-concat">{listProduct.description}</span> </p>
->>>>>>> dd7896478f0aaf18535ff29b4a73f8582df6b68e
        {/* if still have stock (quantity is number) the background color is blue, when out of stock will turn red and show "out of stock" text. */}
        <p>
         Remaining Stock:{' '}
