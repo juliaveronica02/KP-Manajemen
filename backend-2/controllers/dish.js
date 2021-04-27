@@ -84,7 +84,7 @@ module.exports = {
  getDataById: async (req, res) => {
   const { dishId } = req.params;
   await DishModels.findByPk(dishId, {
-   attributes: ['image', 'description', 'name', 'category_id', 'quantity', 'categories'],
+   attributes: ['image', 'description', 'name', 'category_id', 'quantity'],
   })
    .then((result) => {
     res.status(200).json(result);
