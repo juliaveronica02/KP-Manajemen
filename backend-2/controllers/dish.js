@@ -4,6 +4,10 @@ const fs = require('fs');
 
 module.exports = {
  create: (req, res) => {
+   if (DishModels.quantity < 1) return res.status(400).json({ status: 'error', message: 'the meal is out of stock.' })
+   if ((DishModels.quantity - quantity) < 0) {
+    return res.status(404).json({ status: 'error', message: 'quantity can not excess stock\'s quantity' })
+  }
   let { name, description, quantity, categories } = req.body;
   DishModels.create({
    name: name,
