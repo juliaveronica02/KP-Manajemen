@@ -9,37 +9,20 @@ const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
  // value image for select image file from device.
- const [image, setImage] = useState('');
- let [data, setData] = useState({
-  name: '',
-  image: '',
-  description: '',
-  quantity: '',
-  categories: '',
- });
+ const [imageDisplay, setImageDisplay] = useState('');
 
- const {
-  register,
-  handleSubmit,
-  setValue,
-  reset,
-  formState: { isValid },
- } = useForm({
-  mode: 'onChange',
- });
+ const { register, handleSubmit, setValue, reset } = useForm();
 
  useEffect(() => {
   DishService.getDataById(id)
    .then((result) => {
-    const { image, name, description, categories, quantity } = result.data;
-    // setData({
-    //  image: image,
-    //  name: name,
-    //  categories: categories,
-    //  description: description,
-    //  quantity: quantity,
-    // });
-    console.log(result.data);
+    const { image, name, category_id, description, quantity } = result.data;
+    setImageDisplay(image);
+    // setValue('image', '');
+    setValue('name', name);
+    setValue('categories', category_id);
+    setValue('description', description);
+    setValue('quantity', quantity);
    })
    .catch((error) => {
     console.log('error', error);
@@ -47,17 +30,18 @@ const CreateDishComponent = () => {
  }, [id, setValue]);
 
  const changeimageURLHandler = (event) => {
+  console.log('trigger');
   const file = event.target.files[0];
-
+  console.log(file);
   if (event.target.files && event.target.files[0]) {
    let reader = new FileReader();
    reader.onload = (e) => {
-    setImage(e.target.result);
+    setImageDisplay(e.target.result);
     setValue('image', file);
    };
    reader.readAsDataURL(file);
   } else {
-   setImage('');
+   setImageDisplay('');
    setValue('image', '');
   }
  };
@@ -83,7 +67,7 @@ const CreateDishComponent = () => {
    formData.append('description', value.description);
    formData.append('quantity', value.quantity);
    DishService.create(formData, config).then((res) => {
-    setImage('');
+    setImageDisplay('');
     reset();
     history.push('/dish');
    });
@@ -114,7 +98,7 @@ const CreateDishComponent = () => {
      <div className="card-body">
       <form onSubmit={handleSubmit(onSubmit)}>
        <div className="form-group">
-        <label> Image: </label>
+        <label> {id ? 'Update Image :' : 'Image :'} </label>
         <input
          id="image"
          type="file"
@@ -124,21 +108,17 @@ const CreateDishComponent = () => {
         />
        </div>
 
-       {image ? (
-        <div>
-         <img src={image} alt="display" style={{ width: '100px', marginBottom: '1rem' }} />
-        </div>
-       ) : data.image ? (
+       {imageDisplay && (
         <div>
          <img
-          src={`http://localhost:8000/${data.image}`}
+          src={id ? `http://localhost:8000/${imageDisplay}` : imageDisplay}
           alt="display"
           style={{ width: '100px', marginBottom: '1rem' }}
          />
         </div>
-       ) : (
-        'Upload image!'
        )}
+
+       {!imageDisplay && <p>Upload image!</p>}
 
        <div className="form-group">
         <label> Dish Name: </label>
@@ -148,6 +128,7 @@ const CreateDishComponent = () => {
          className="form-control"
          {...register('name', { required: true })}
          onChange={(e) => onChangeValue(e, 'name')}
+         placeholder="update"
         />
        </div>
 
@@ -162,9 +143,9 @@ const CreateDishComponent = () => {
          onChange={(e) => onChangeValue(e, 'categories')}
         >
          <option>Choose Categories!</option>
-         <option value="one">One</option>
-         <option value="two">Two</option>
-         <option value="three">Three</option>
+         <option value="0">0</option>
+         <option value="1">1</option>
+         <option value="2">2</option>
         </select>
        </div>
 
