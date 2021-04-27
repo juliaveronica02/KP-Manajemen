@@ -20,7 +20,7 @@ Inventory Management Systems APP is using API that allow the users to read produ
   - sweetalert2 (To handle success and error messages).
 
 ## Testing API/Routes.
-* Postman.
+* Postman and Thunder Client.
 
 ## Key Concepts.
 * MVC (Model-View-Controller).

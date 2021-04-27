@@ -8,7 +8,9 @@ import DishService from '../../Services/dishServices';
 const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
+ // value image for select image file from device.
  const [image, setImage] = useState('');
+<<<<<<< HEAD
  let [data, setData] = useState({
   name: '',
   image: '',
@@ -46,6 +48,39 @@ const CreateDishComponent = () => {
  }, [id, setValue]);
 
  const changeimageURLHandler = (event) => {
+=======
+ // declere field from backend models.
+ const [data, setData] = useState({
+     name: '',
+     image:'',
+     description: '',
+     quantity: '',
+     categories: ''
+ })
+ 
+ const {register, handleSubmit, formState: { errors }, setValue} = useForm();
+
+ useEffect(() => {
+    //  get dish by id.
+         DishService.getDataById(id)
+         .then((result)=> {
+            //  setValue to get the data and parse to form with default value.
+            setData({
+                image: result.data.image, 
+                name: result.data.name, 
+                description: result.data.description, 
+                categories: result.data.categories, 
+                quantity: result.data.quantity})
+                console.log("setData: ", result.data);
+         })
+         .catch((error)=> {
+             console.log("error", error);
+         })
+ }, [id]);
+
+//  handle image upload when cretae and update image.
+  const changeimageURLHandler = (event) => {
+>>>>>>> dd7896478f0aaf18535ff29b4a73f8582df6b68e
   const file = event.target.files[0];
 
   if (event.target.files && event.target.files[0]) {
@@ -96,6 +131,7 @@ const CreateDishComponent = () => {
   }
  };
 
+ // change title.
  const getTitle = () => {
   if (id === 'create') {
    return <h3 className="text-center">Add Dish</h3>;

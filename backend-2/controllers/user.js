@@ -63,6 +63,7 @@ module.exports = {
     // getAllData.
     getAllData: (req, res) => {
         UserModel.findAll({
+          // not show column time when update (updateAt).
           attributes: {exclude: ['updatedAt']}
         })
         .then((result)=> res.json(result))
@@ -70,6 +71,7 @@ module.exports = {
     },
       // get user by id.
       getDataById: (req, res) => {
+        // id = userId.
         UserModel.findOne({ where: { id: req.params.userId } })
           .then((result) => res.json(result))
           .catch((err) => {
@@ -144,8 +146,8 @@ module.exports = {
               payload,
               privateKey,
               {
-                // expiresIn: 31556926, // 1 year in seconds
-                expiresIn: "24h", // 24 hours.
+                expiresIn: 31556926, // 1 year in seconds
+                // expiresIn: "24h", // 24 hours.
               },
               (err, token) => {
                 // show below data if success.
