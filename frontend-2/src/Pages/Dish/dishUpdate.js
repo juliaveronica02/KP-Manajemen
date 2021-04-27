@@ -3,39 +3,49 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import DishService from '../../Services/dishServices';
-import axios from 'axios'
+// import axios from 'axios';
 
 const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
  const [image, setImage] = useState('');
- const [data, setData] = useState({
-     name: '',
-     image:'',
-     description: '',
-     quantity: '',
-     categories: ''
- })
- 
- const {register, handleSubmit, formState: { errors }, setValue} = useForm();
+ let [data, setData] = useState({
+  name: '',
+  image: '',
+  description: '',
+  quantity: '',
+  categories: '',
+ });
+
+ const {
+  register,
+  handleSubmit,
+  setValue,
+  reset,
+  formState: { isValid },
+ } = useForm({
+  mode: 'onChange',
+ });
 
  useEffect(() => {
-         DishService.getDataById(id)
-         .then((result)=> {
-            setData({
-                image: result.data.image, 
-                name: result.data.name, 
-                description: result.data.description, 
-                categories: result.data.categories, 
-                quantity: result.data.quantity})
-                console.log("setData: ", result.data);
-         })
-         .catch((error)=> {
-             console.log("error", error);
-         })
- }, [id]);
+  DishService.getDataById(id)
+   .then((result) => {
+    const { image, name, description, categories, quantity } = result.data;
+    // setData({
+    //  image: image,
+    //  name: name,
+    //  categories: categories,
+    //  description: description,
+    //  quantity: quantity,
+    // });
+    console.log(result.data);
+   })
+   .catch((error) => {
+    console.log('error', error);
+   });
+ }, [id, setValue]);
 
-  const changeimageURLHandler = (event) => {
+ const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
   if (event.target.files && event.target.files[0]) {
@@ -56,109 +66,112 @@ const CreateDishComponent = () => {
  };
 
  const cancel = () => history.push('/dish');
- 
-  const onSubmit = (data, e) => {
+
+ const onSubmit = (value, e) => {
   const formData = new FormData();
-  formData.append('image', data.image);
-  formData.append('name', data.name);
-  formData.append('categories', data.categories);
-  formData.append('description', data.description);
-  formData.append('quantity', data.quantity);
-    console.log( data, '1. ==================')
   const config = {
    headers: {
     'Content-Type': 'multipart/form-data',
    },
    body: formData,
   };
-
   if (id === 'create') {
+   formData.append('image', value.image);
+   formData.append('name', value.name);
+   formData.append('categories', value.categories);
+   formData.append('description', value.description);
+   formData.append('quantity', value.quantity);
    DishService.create(formData, config).then((res) => {
     setImage('');
-    // clear field.
-    // e.target.reset();
+    reset();
     history.push('/dish');
-    console.log('data create success: ', res);
    });
   } else {
-    axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
-    setImage('')
-    history.push('/dish');
-    console.log('data update success: ', res);
-   });
+   console.log(value);
+   // axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
+   //  setImage('');
+   //  history.push('/dish');
+   //  console.log('data update success: ', res);
+   // });
   }
  };
 
  const getTitle = () => {
-     if (id === "create") {
-         return <h3 className="text-center">Add Dish</h3>
-     }
-     else {
-        return <h3 className="text-center">Update Dish</h3>
-     }
- }
- 
+  if (id === 'create') {
+   return <h3 className="text-center">Add Dish</h3>;
+  } else {
+   return <h3 className="text-center">Update Dish</h3>;
+  }
+ };
+
  return (
   <div className="container" style={{ marginTop: '8rem' }}>
    <div className="row">
     <div className="card col-md-6 offset-md-3 offset-md-3 pt-4">
-        {getTitle()}
+     {getTitle()}
      <div className="card-body">
       <form onSubmit={handleSubmit(onSubmit)}>
        <div className="form-group">
         <label> Image: </label>
         <input
+         id="image"
          type="file"
          className="form-control"
-         defaultValue={data.image}
          {...register('image', { required: true })}
          onChange={(e) => changeimageURLHandler(e)}
         />
        </div>
-       
+
        {image ? (
         <div>
-         <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
+         <img src={image} alt="display" style={{ width: '100px', marginBottom: '1rem' }} />
         </div>
        ) : data.image ? (
         <div>
-         <img src={`http://localhost:8000/${data.image}`} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
+         <img
+          src={`http://localhost:8000/${data.image}`}
+          alt="display"
+          style={{ width: '100px', marginBottom: '1rem' }}
+         />
         </div>
-       ) : 'Upload image!'
-    }
-       {console.log(data, '2.===============================================')}
+       ) : (
+        'Upload image!'
+       )}
 
        <div className="form-group">
         <label> Dish Name: </label>
         <input
+         id="name"
          type="text"
          className="form-control"
-         defaultValue={data.name}
          {...register('name', { required: true })}
          onChange={(e) => onChangeValue(e, 'name')}
         />
        </div>
 
        <div className="input-group mb-3">
-       <div className="input-group">
-            <label>Categories:</label>
+        <div className="input-group">
+         <label>Categories:</label>
         </div>
-        <select className="custom-select" id="inputGroupSelect02"
-        defaultValue={data.categories}
-        {...register('categories', { required: true })}
-        onChange={(e) => onChangeValue(e, 'categories')}>
-            <option>Choose Categories!</option>
-            <option>One</option>
-            <option>Two</option>
-            <option>Three</option>
+        <select
+         className="custom-select"
+         id="categories"
+         {...register('categories', { required: true })}
+         onChange={(e) => onChangeValue(e, 'categories')}
+        >
+         <option>Choose Categories!</option>
+         <option value="one">One</option>
+         <option value="two">Two</option>
+         <option value="three">Three</option>
         </select>
-        </div>
+       </div>
 
        <div className="form-group">
         <label> Description: </label>
-        <textarea className="form-control" 
+        <textarea
+         id="description"
+         className="form-control"
          rows="5"
-         defaultValue={data.description}
          {...register('description', { required: true })}
          onChange={(e) => onChangeValue(e, 'description')}
         />
@@ -167,9 +180,9 @@ const CreateDishComponent = () => {
        <div className="form-group">
         <label> Quantity: </label>
         <input
+         id="quantity"
          type="number"
          className="form-control"
-         defaultValue={data.quantity}
          {...register('quantity', { required: true })}
          onChange={(e) => onChangeValue(e, 'quantity')}
         />

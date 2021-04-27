@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Hallo123$",
+    "password": "bill1234",
     "database": "collab2",
     "host": "127.0.0.1",
     "dialect": "mysql"

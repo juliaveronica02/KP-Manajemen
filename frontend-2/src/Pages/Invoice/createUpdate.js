@@ -8,22 +8,22 @@ const CreateInvoiceComponent = () => {
  const history = useHistory();
  let { id } = useParams();
  const [image, setImage] = useState('');
-//  set dish state.
- const [data, setData] = useState([])
- const {register, handleSubmit, formState: { errors }, setValue} = useForm();
+ //  set dish state.
+ const [data, setData] = useState([]);
+ const { register, handleSubmit, setValue } = useForm();
 
  useEffect(() => {
-         InvoiceService.getDataById(id)
-         .then((response)=> {
-             setData(response.data)
-             console.log("data 2: ", response.data);
-         })
-         .catch((error)=> {
-             console.log("error", error);
-         })
- }, []);
+  InvoiceService.getDataById(id)
+   .then((response) => {
+    setData(response.data);
+    console.log('data 2: ', response.data);
+   })
+   .catch((error) => {
+    console.log('error', error);
+   });
+ }, [id]);
 
-  const changeimageURLHandler = (event) => {
+ const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
   if (event.target.files && event.target.files[0]) {
@@ -44,9 +44,9 @@ const CreateInvoiceComponent = () => {
  };
 
  const cancel = () => history.push('/dish');
- 
-  const onSubmit = (data, e) => {
-  e.preventDefault()
+
+ const onSubmit = (data, e) => {
+  e.preventDefault();
   const formData = new FormData();
   formData.append('image', data.image);
   formData.append('price', data.price);
@@ -81,19 +81,18 @@ const CreateInvoiceComponent = () => {
  };
 
  const getTitle = () => {
-     if (id === "create") {
-         return <h3 className="text-center">Add Invoice</h3>
-     }
-     else {
-        return <h3 className="text-center">Update Invoice</h3>
-     }
- }
+  if (id === 'create') {
+   return <h3 className="text-center">Add Invoice</h3>;
+  } else {
+   return <h3 className="text-center">Update Invoice</h3>;
+  }
+ };
 
  return (
   <div className="container" style={{ marginTop: '8rem' }}>
    <div className="row">
     <div className="card col-md-6 offset-md-3 offset-md-3 pt-4">
-        {getTitle()}
+     {getTitle()}
      <div className="card-body">
       <form onSubmit={handleSubmit(onSubmit)}>
        <div className="form-group">
@@ -107,7 +106,7 @@ const CreateInvoiceComponent = () => {
        </div>
        {image && (
         <div>
-         <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
+         <img src={image} alt="display" style={{ width: '100px', marginBottom: '1rem' }} />
         </div>
        )}
        <div className="form-group">
@@ -119,7 +118,7 @@ const CreateInvoiceComponent = () => {
          onChange={(e) => onChangeValue(e, 'price')}
         />
        </div>
-       
+
        <div className="form-group">
         <label> Store Name: </label>
         <input
@@ -142,7 +141,8 @@ const CreateInvoiceComponent = () => {
 
        <div className="form-group">
         <label> Address: </label>
-        <textarea className="form-control" 
+        <textarea
+         className="form-control"
          rows="5"
          {...register('address', { required: true })}
          onChange={(e) => onChangeValue(e, 'address')}
@@ -151,7 +151,8 @@ const CreateInvoiceComponent = () => {
 
        <div className="form-group">
         <label> Description: </label>
-        <textarea className="form-control" 
+        <textarea
+         className="form-control"
          rows="5"
          {...register('description', { required: true })}
          onChange={(e) => onChangeValue(e, 'description')}
