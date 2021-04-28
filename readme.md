@@ -60,5 +60,12 @@ Inventory Management Systems APP is using API that allow the users to read produ
 ## Other facilities.
 * Users can logout.
 
+## new branch.
+1. vs.code - go to source control.
+2. click dot (...).
+3. select branch - create branch only - create branch name 'version1.1'.
+2. click dot (...).
+4. select pull and push - push.
+5. pop up show "push to version1.1" - yes - done.
 
 @author: Julia Veronica-1931154-4PSIA
