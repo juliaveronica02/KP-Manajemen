@@ -18,7 +18,6 @@ const DishSchema = sequelize.define(
    references: { model: Category },
    // this is the column name of the references model.
    key: 'id',
-   defaultValue: 'lorem ipsum',
   },
   name: {
    type: Sequelize.STRING,

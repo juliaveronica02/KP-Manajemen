@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
 import DishService from '../../Services/dishServices';
@@ -8,7 +8,9 @@ import axios from 'axios'
 const CreateDishComponent = () => {
  const history = useHistory();
  let { id } = useParams();
+ // value image for select image file from device.
  const [image, setImage] = useState('');
+ // declere field from backend models.
  const [data, setData] = useState({
      name: '',
      image:'',
@@ -16,25 +18,28 @@ const CreateDishComponent = () => {
      quantity: '',
      categories: ''
  })
- const {register, handleSubmit, formState: { errors }, setValue, control} = useForm();
+ 
+ const {register, handleSubmit, formState: { errors }, setValue} = useForm();
 
  useEffect(() => {
+    //  get dish by id.
          DishService.getDataById(id)
          .then((result)=> {
-            //  setValue("id", result.data.id)
-            //  setValue("image", result.data.image)
-            //  setValue("name", result.data.name)
-            //  setValue("description", result.data.description)
-            //  setValue("categories", result.data.categories)
-            //  setValue("quantity", result.data.quantity)
-            //  console.log("result", result.data.id, result.data.image);
-            setData({name: result.data.name, description: result.data.description, image: result.data.image, categories: result.data.categories, quantity: result.data.quantity})
+            //  setValue to get the data and parse to form with default value.
+            setData({
+                image: result.data.image, 
+                name: result.data.name, 
+                description: result.data.description, 
+                categories: result.data.categories, 
+                quantity: result.data.quantity})
+                console.log("setData: ", result.data);
          })
          .catch((error)=> {
              console.log("error", error);
          })
  }, [id]);
 
+//  handle image upload when cretae and update image.
   const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
@@ -64,7 +69,7 @@ const CreateDishComponent = () => {
   formData.append('categories', data.categories);
   formData.append('description', data.description);
   formData.append('quantity', data.quantity);
-    console.log( data, '==================')
+    console.log( data, '1. ==================')
   const config = {
    headers: {
     'Content-Type': 'multipart/form-data',
@@ -81,7 +86,6 @@ const CreateDishComponent = () => {
     console.log('data create success: ', res);
    });
   } else {
-//    DishService.updateDataById(id,data, config, formData).then((res) => {
     axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
     setImage('')
     history.push('/dish');
@@ -90,6 +94,7 @@ const CreateDishComponent = () => {
   }
  };
 
+ // change title.
  const getTitle = () => {
      if (id === "create") {
          return <h3 className="text-center">Add Dish</h3>
@@ -125,11 +130,11 @@ const CreateDishComponent = () => {
         <div>
          <img src={`http://localhost:8000/${data.image}`} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
         </div>
-       ) : 'Upload image'
+       ) : 'Upload image!'
     }
-      
+       {console.log(data, '2.===============================================')}
+
        <div className="form-group">
-           {console.log(data)}
         <label> Dish Name: </label>
         <input
          type="text"
@@ -138,9 +143,8 @@ const CreateDishComponent = () => {
          {...register('name', { required: true })}
          onChange={(e) => onChangeValue(e, 'name')}
         />
-        
        </div>
-       
+
        <div className="input-group mb-3">
        <div className="input-group">
             <label>Categories:</label>
