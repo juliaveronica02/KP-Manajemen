@@ -4,13 +4,6 @@ import { NavLink, Link } from 'react-router-dom';
 import './index.css'
 
 class Product extends React.Component {
- // constructor(props) {
- //  super(props);
- //  this.state = {
- //   width: window.innerWidth,
- //   products: [],
- //  };
- // }
  state = {
   width: window.innerWidth,
   products: [],

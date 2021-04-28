@@ -100,7 +100,12 @@ const CreateDishComponent = () => {
          return <h3 className="text-center">Add Dish</h3>
      }
      else {
-        return <h3 className="text-center">Update Dish</h3>
+        return <h3 className="text-center">Update Dish 
+        <br/>
+        <small className="text-center" style={{color:'red', fontSize:"12px"}}>*Must Update All Field*</small> 
+        <br/>
+        <small className="text-center" style={{color:'red', fontSize:"12px"}}>Manual Handling Minus Quantity!</small> 
+        </h3>
      }
  }
  
