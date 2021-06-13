@@ -53,3 +53,13 @@ CREATE TRIGGER `checkoutStock` AFTER INSERT ON `reduce_stock` FOR EACH ROW UPDAT
 <summary>Invoice</summary>
 CREATE TABLE Invoice(id int(11) NOT NULL AUTO_INCREMENT,image text NOT NULL,store_name varchar(70) NOT NULL,sales_name varchar(70) NOT NULL,address text NOT NULL,phone BIGINT(15) NOT NULL,price BIGINT(20) NOT NULL,description text NOT NULL,createdAt datetime NOT NULL,updatedAt datetime NOT NULL,PRIMARY KEY(id));
 </details>
+
+<details>
+<summary>CRUD</summary>
+CREATE TABLE crud(id int(11) NOT NULL AUTO_INCREMENT,name varchar(70) NOT NULL,department varchar(70) NOT NULL,age text NOT NULL,city text NOT NULL,country text NOT NULL,gender text NOT NULL,createdAt datetime NOT NULL,updatedAt datetime NOT NULL,PRIMARY KEY(id));
+</details>
+
+<details>
+<summary>CRUD 2</summary>
+CREATE TABLE crud2(id int(11) NOT NULL AUTO_INCREMENT,name varchar(70) NOT NULL,department varchar(70) NOT NULL,age text NOT NULL,city text NOT NULL,country text NOT NULL,image text NOT NULL,gender text NOT NULL,createdAt datetime NOT NULL,updatedAt datetime NOT NULL,PRIMARY KEY(id));
+</details>

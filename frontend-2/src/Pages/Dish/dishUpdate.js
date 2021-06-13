@@ -39,7 +39,7 @@ const CreateDishComponent = () => {
          })
  }, [id]);
 
-//  handle image upload when cretae and update image.
+//  handle image upload when create and update image.
   const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
