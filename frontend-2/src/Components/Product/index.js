@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './index.css'
 
 class Product extends React.Component {

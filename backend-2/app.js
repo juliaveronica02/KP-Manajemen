@@ -22,23 +22,23 @@ var crud2Router = require('./routes/crud2');
 var app = express();
 
 // enabling cors for all requests by using cors middleware.
-// app.use(
-//  cors({
-//   credentials: true,
-//   origin: (req, cb) => {
-//    // allow from anywhere
-//    cb(null, true);
-//   },
-//  }),
-// );
+app.use(
+ cors({
+  credentials: true,
+  origin: (req, cb) => {
+   // allow from anywhere
+   cb(null, true);
+  },
+ }),
+);
 // solve: has block by cors.
 // no need, already use cors()
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//   next();
+// });
 app.use(logger('dev'));
 // body-parser: parse requests of content-type: application/json (to parse incoming data).
 app.use(bodyParser.json());

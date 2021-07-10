@@ -42,6 +42,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Createemployee from './CrudComponent2/Createemployee'  
 import EmployeList from './CrudComponent2/EmployeList'  
 import Editemployee from "./CrudComponent2/Editemployee";  
+import Detailemployee from "./CrudComponent2/EmployeeDetail";  
 function App() {  
   return (  
     <div className="App">  
@@ -64,6 +65,7 @@ function App() {
           <Route exact path='/Createemployee' component={Createemployee} />    
           <Route path='/edit/:id' component={Editemployee} />    
           <Route path='/EmployeList' component={EmployeList} />    
+          <Route path='/show/:id' component={Detailemployee} />    
         </Switch>    
       </div>    
     </Router>    

@@ -25,6 +25,12 @@ function EmployeList(props) {
       pathname: '/edit/' + id  
     });  
   };  
+
+  const detailEmployee = (id) => {  
+    props.history.push({  
+      pathname: '/show/' + id  
+    });  
+  }; 
   
   return (  
     <div className="animated fadeIn">  
@@ -66,6 +72,7 @@ function EmployeList(props) {
                           <div className="btn-group">  
                             <button className="btn btn-warning" onClick={() => { editemployee(item.id) }}>Edit</button>  
                             <button className="btn btn-warning" onClick={() => { deleteeployee(item.id) }}>Delete</button>  
+                            <button className="btn btn-warning" onClick={() => { detailEmployee(item.id) }}>Detail</button>  
                           </div>  
                         </td>  
                       </tr>  

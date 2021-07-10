@@ -11,18 +11,37 @@ const Createemployee = () => {
  // value image for select image file from device.
  const [image, setImage] = useState('');
  const [employee, setemployee]= useState({image:'',name: '', department: '', age: '', city: '', country: '', gender: '' });  
-
+  // shorthand.
   useEffect(()=> {
     const URL = "http://localhost:8000/crud2/show/" + id;
     axios.get(URL)
     .then((res)=> {
       setemployee(res.data)
-      console.log("data", res.data);
+      console.log("data: ", res.data);
     })
     .catch((err) => {
      console.log(err);
    });
-  },[])
+  },[id])
+
+//   const Url = "http://localhost:8000/crud2/show/" + id;  
+
+//   useEffect(()=>{
+//    const GetData = async () => {
+//       const result = await axios(Url)
+//       setemployee({
+//         image: result.data.image,
+//         name: result.data.name,
+//         department: result.data.department,
+//         age: result.data.age,
+//         city: result.data.city,
+//         country: result.data.country,
+//         gender: result.data.gender
+//       })
+//       console.log("setemployee: ", result.data);
+//    }
+//    GetData();  
+//  }, [])
  
  const {register, handleSubmit, setValue} = useForm();
 
@@ -44,20 +63,27 @@ const Createemployee = () => {
  };
 
  const onChangeValue = (e) => {
-  setemployee({...employee, [e.target.name]: e.target.value});
- };
+  e.persist();  
+  // setValue(name, e.target.value);
+  let { name, value } = e.currentTarget;
+  setemployee({
+    ...employee,
+    [name]: value,
+  });
+};
 
  const cancel = () => history.push('/EmployeList');
  
   const UpdateEmployee = (data, e) => {
+  e.preventDefault();  
   const formData = new FormData();
   formData.append('image', data.image);
   formData.append('name', data.name);
-  formData.append('department', data.department);
-  formData.append('age', data.age);
-  formData.append('city', data.city);
-  formData.append('country', data.country);
-  formData.append('gender', data.gender);
+  // formData.append('department', data.department);
+  // formData.append('age', data.age);
+  // formData.append('city', data.city);
+  // formData.append('country', data.country);
+  // formData.append('gender', data.gender);
   console.log( data, '1. ==================')
   const config = {
    headers: {
@@ -70,6 +96,9 @@ const Createemployee = () => {
         // e.target.reset(); // reset field.
         history.push('/EmployeList') 
         console.log('data updated success: ', result); 
+      })
+      .catch((err) => {
+        console.log(err);
       }); 
  };
 
@@ -86,7 +115,8 @@ const Createemployee = () => {
                     <Input type="file" name="image" id="image" 
                       defaultValue={employee.image}
                       {...register('image', { required: true })}
-                      onChange={(e) => changeimageURLHandler(e) }  />  
+                      onChange={(e) => changeimageURLHandler(e) }  
+                      />  
                     {image ? (
         <div>
          <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
@@ -100,12 +130,13 @@ const Createemployee = () => {
                   </InputGroup>  
                   <InputGroup className="mb-3">  
                     <Input type="text" placeholder="name" name="name" id="name" 
-                      defaultValue={employee.name}
+                      defaultValue={employee.name} 
                       {...register('name', { required: true })}
-                      onChange={(e) => onChangeValue(e, 'name') }  /> 
+                      onChange={ (e)=> onChangeValue(e, 'name') }  
+                      /> 
                   </InputGroup> 
 
-                   <InputGroup className="mb-3">  
+                   {/* <InputGroup className="mb-3">  
                     <Input type="text" placeholder="department" name="department" id="department" 
                       defaultValue={employee.department}
                       {...register('department', { required: true })}
@@ -138,7 +169,7 @@ const Createemployee = () => {
                       defaultValue={employee.gender}
                       {...register('gender', { required: true })}
                       onChange={(e)=> onChangeValue(e, 'gender') } />  
-                  </InputGroup>   
+                  </InputGroup>    */}
              <CardFooter className="p-4">  
                 <Row>  
                   <Col xs="12" sm="6">  

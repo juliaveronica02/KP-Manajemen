@@ -37,7 +37,7 @@ const CreateDishComponent = () => {
          .catch((error)=> {
              console.log("error", error);
          })
- }, []);
+ }, [id]);
 
 //  handle image upload when create and update image.
   const changeimageURLHandler = (event) => {
