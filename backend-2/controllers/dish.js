@@ -9,7 +9,7 @@ module.exports = {
    name: name,
    image: req.file.path,
    description: description,
-   category_id: 1, //change in here.
+  //  category_id: 1, //change in here.
    categories: categories,
    quantity: quantity,
   })

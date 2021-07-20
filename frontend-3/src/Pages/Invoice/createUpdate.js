@@ -2,44 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router';
-import DishService from '../../Services/dishServices';
-import axios from 'axios'
+import InvoiceService from '../../Services/invoices';
 
-const CreateDishComponent = () => {
+const CreateInvoiceComponent = () => {
  const history = useHistory();
  let { id } = useParams();
- // value image for select image file from device.
  const [image, setImage] = useState('');
- // declere field from backend models.
- const [data, setData] = useState({
-     name: '',
-     image:'',
-     description: '',
-     quantity: '',
-     categories: ''
- })
- 
+//  set dish state.
+ const [data, setData] = useState([])
  const {register, handleSubmit, formState: { errors }, setValue} = useForm();
 
  useEffect(() => {
-    //  get dish by id.
-         DishService.getDataById(id)
-         .then((result)=> {
-            //  setValue to get the data and parse to form with default value.
-            setData({
-                image: result.data.image, 
-                name: result.data.name, 
-                description: result.data.description, 
-                categories: result.data.categories, 
-                quantity: result.data.quantity})
-                console.log("setData: ", result.data);
+         InvoiceService.getDataById(id)
+         .then((response)=> {
+             setData(response.data)
+             console.log("data 2: ", response.data);
          })
          .catch((error)=> {
              console.log("error", error);
          })
  }, []);
 
-//  handle image upload when create and update image.
   const changeimageURLHandler = (event) => {
   const file = event.target.files[0];
 
@@ -63,13 +46,16 @@ const CreateDishComponent = () => {
  const cancel = () => history.push('/dish');
  
   const onSubmit = (data, e) => {
+  e.preventDefault()
   const formData = new FormData();
   formData.append('image', data.image);
-  formData.append('name', data.name);
-  formData.append('categories', data.categories);
+  formData.append('price', data.price);
+  formData.append('store_name', data.store_name);
+  formData.append('sales_name', data.sales_name);
+  formData.append('address', data.address);
   formData.append('description', data.description);
-  formData.append('quantity', data.quantity);
-    console.log( data, '1. ==================')
+  formData.append('phone', data.phone);
+
   const config = {
    headers: {
     'Content-Type': 'multipart/form-data',
@@ -78,37 +64,31 @@ const CreateDishComponent = () => {
   };
 
   if (id === 'create') {
-   DishService.create(formData, config).then((res) => {
+   InvoiceService.create(formData, config).then((res) => {
     setImage('');
     // clear field.
     // e.target.reset();
-    history.push('/dish');
+    history.push('/invoice');
     console.log('data create success: ', res);
    });
   } else {
-    axios.put(`http://localhost:8000/dish/edit/${id}`, formData, config).then((res) => {
-    setImage('')
-    history.push('/dish');
+   InvoiceService.updateDataById(id, config, formData).then((res) => {
+    setImage('');
+    history.push('/invoice');
     console.log('data update success: ', res);
    });
   }
  };
 
- // change title.
  const getTitle = () => {
      if (id === "create") {
-         return <h3 className="text-center">Add Dish</h3>
+         return <h3 className="text-center">Add Invoice</h3>
      }
      else {
-        return <h3 className="text-center">Update Dish 
-        <br/>
-        <small className="text-center" style={{color:'red', fontSize:"12px"}}>*Must Update All Field*</small> 
-        <br/>
-        <small className="text-center" style={{color:'red', fontSize:"12px"}}>Manual Handling Minus Quantity!</small> 
-        </h3>
+        return <h3 className="text-center">Update Invoice</h3>
      }
  }
- 
+
  return (
   <div className="container" style={{ marginTop: '8rem' }}>
    <div className="row">
@@ -121,41 +101,51 @@ const CreateDishComponent = () => {
         <input
          type="file"
          className="form-control"
-         defaultValue={data.image}
          {...register('image', { required: true })}
          onChange={(e) => changeimageURLHandler(e)}
         />
        </div>
-       
-       {image ? (
+       {image && (
         <div>
          <img src={image} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
         </div>
-       ) : data.image ? (
-        <div>
-         <img src={`http://localhost:8000/${data.image}`} alt="display" style={{width: "100px", marginBottom:"1rem"}}/>
-        </div>
-       ) : 'Upload image!'
-    }
-       {console.log(data, '2.===============================================')}
-
+       )}
        <div className="form-group">
-        <label> Dish Name: </label>
+        <label> Price: </label>
+        <input
+         type="number"
+         className="form-control"
+         {...register('price', { required: true })}
+         onChange={(e) => onChangeValue(e, 'price')}
+        />
+       </div>
+       
+       <div className="form-group">
+        <label> Store Name: </label>
         <input
          type="text"
          className="form-control"
-         defaultValue={data.name}
-         {...register('name', { required: true })}
-         onChange={(e) => onChangeValue(e, 'name')}
+         {...register('store_name', { required: true })}
+         onChange={(e) => onChangeValue(e, 'store_name')}
         />
        </div>
 
        <div className="form-group">
-        <label> Categories: </label>
-        <input type="text" className="form-control" 
-         defaultValue={data.categories}
-         {...register('categories', { required: true })}
-         onChange={(e) => onChangeValue(e, 'categories')}
+        <label> Sales Name: </label>
+        <input
+         type="text"
+         className="form-control"
+         {...register('sales_name', { required: true })}
+         onChange={(e) => onChangeValue(e, 'sales_name')}
+        />
+       </div>
+
+       <div className="form-group">
+        <label> Address: </label>
+        <textarea className="form-control" 
+         rows="5"
+         {...register('address', { required: true })}
+         onChange={(e) => onChangeValue(e, 'address')}
         />
        </div>
 
@@ -163,20 +153,18 @@ const CreateDishComponent = () => {
         <label> Description: </label>
         <textarea className="form-control" 
          rows="5"
-         defaultValue={data.description}
          {...register('description', { required: true })}
          onChange={(e) => onChangeValue(e, 'description')}
         />
        </div>
 
        <div className="form-group">
-        <label> Quantity: </label>
+        <label> Phone: </label>
         <input
          type="number"
          className="form-control"
-         defaultValue={data.quantity}
-         {...register('quantity', { required: true })}
-         onChange={(e) => onChangeValue(e, 'quantity')}
+         {...register('phone', { required: true })}
+         onChange={(e) => onChangeValue(e, 'phone')}
         />
        </div>
 
@@ -194,4 +182,4 @@ const CreateDishComponent = () => {
  );
 };
 
-export default CreateDishComponent;
+export default CreateInvoiceComponent;
